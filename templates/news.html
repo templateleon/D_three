@@ -1,0 +1,35 @@
+{% extends 'default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+<h1>All news</h1>
+{{ news|length }}
+
+<hr>
+{% if news %}
+<table>
+    <tr>
+        <td><u>Heading</u></td>
+        <td width="150"><u>Date</u></td>
+        <td><u>Preview</u></td>
+    </tr>
+    {% for new_s in news %}
+    <tr>
+        <td>
+            <a href="{% url 'new_s' new_s.id %}">{{ new_s.title|censor }}</a>
+        </td>
+        <td>{{ new_s.timePost|date:'d-N-Y' }}</td>
+        <td>{{ new_s.textPost|censor|truncatechars:50 }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h2>No news</h2>
+{% endif %}
+
+{% endblock content %}
